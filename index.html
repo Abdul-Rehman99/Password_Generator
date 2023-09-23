@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    }
+    body{
+        background-color: #0581ca;
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+    }
+    .container{
+        display: flex;
+        background-color: #ffffff;
+        color: #015a96;
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px 30px;
+        width: 370px;
+        position: relative;
+    }
+    input{
+        padding: 10px;
+        font: 1.3rem sans-serif;
+        border: 2px solid #0d98f5;
+        outline: none;
+        border-radius: 6px;
+        color: #565353;
+    }
+    #copy{
+        position: absolute;
+        right: 30px;
+    }
+    button{
+        width: 130px;
+        padding: 12px;
+        font: 1em sans-serif;
+        font-weight: bold;
+        border: none;
+        color: #f2faff;
+        border-radius: 6px;
+        background-color: #0581ca;
+    }
+    button:hover{
+        background-color: #005e9d;
+        cursor: pointer;
+    }
+</style>
+<body>
+  <div class="container">
+    <h1>Password Generator</h1>
+    <input type="text" id="pwdInp" placeholder="Create Password" maxlength="16">
+    <span class="btn">
+        <button id="generate">Generate</button>
+        <button id="copy">Copy</button>
+    </span>
+  </div>
+  <script>
+    const genEle = document.getElementById('generate');
+    const pwdEle = document.getElementById('copy');
+    const inpEle = document.getElementById('pwdInp');
+    // password generator
+    function passwordGenerator() {
+    const Ar = [];
+    let ascii = 33; //33 - 126
+        for (let i = 0; i < 94; i++) {
+          Ar[i] = ascii;
+          ascii++;
+    }
+    let password = "";
+        for (let i = 0; i < 16; i++) {
+        let idx = Ar[Math.floor(Math.random()*94)];
+        let Ch = String.fromCharCode(idx);
+        password += Ch;
+    }
+    inpEle.value = password;
+    }
+    // copy funtion
+    function Copy() {
+     inpEle.select();
+     inpEle.setSelectionRange(0, 99999); 
+     navigator.clipboard.writeText(inpEle.value);
+     //alert("Password:  " + inpEle.value);
+    }
+    //passwordGenerator();
+    pwdEle.addEventListener('click',Copy);
+    genEle.addEventListener('click',passwordGenerator);
+  </script>
+</body>
+</html>
